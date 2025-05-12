@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'fir-notification-1a116',
     storageBucket: 'fir-notification-1a116.firebasestorage.app',
   );
+
 }

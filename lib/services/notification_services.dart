@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:app_settings/app_settings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebse_notification/home_screen.dart';
+import 'package:firebse_notification/message_screen.dart';
+import 'package:firebse_notification/notification_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -59,7 +61,8 @@ class NotificationServices {
   void initLocalNotification(
       BuildContext context, RemoteMessage message) async {
     var androidInItSettings =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/launcher_icon');
+
     var iosInItSettings = const DarwinInitializationSettings();
     var initializationSettings = InitializationSettings(
         android: androidInItSettings, iOS: iosInItSettings);
@@ -169,11 +172,27 @@ class NotificationServices {
   //7 message handler
   Future<void> handleMessage(
       BuildContext context, RemoteMessage message) async {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => HomeScreen(),
-        ));
+    if (message.data['screen'].toString() == 'message') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MessageScreen(),
+          ));
+    } else if (message.data['screen'].toString() == 'notification') {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => NotificationScreen(
+              message: message,
+            ),
+          ));
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ));
+    }
   }
 
   //5 for ios message

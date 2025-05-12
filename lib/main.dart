@@ -22,8 +22,20 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    subscribe();
+  }
 
   // This widget is the root of your application.
   @override
@@ -32,7 +44,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          fontFamily: 'SFProDisplay',
           textTheme: TextTheme(
             bodyMedium: TextStyle(fontWeight: FontWeight.w400),
             titleMedium: TextStyle(fontWeight: FontWeight.w600),
@@ -40,4 +51,11 @@ class MyApp extends StatelessWidget {
         ),
         home: HomeScreen());
   }
+}
+
+// send notification to group of users
+void subscribe() async {
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  await messaging.subscribeToTopic('all');
+  print('Subscribed to topic');
 }

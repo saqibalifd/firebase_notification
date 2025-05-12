@@ -1,1 +1,25 @@
+import 'package:flutter/material.dart';
 
+class MessageScreen extends StatefulWidget {
+  const MessageScreen({super.key});
+
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Message Screen')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Message Screen'),
+          ],
+        ),
+      ),
+    );
+  }
+}
