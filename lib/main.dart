@@ -4,36 +4,40 @@ import 'package:firebse_notification/firebase_options.dart';
 import 'package:firebse_notification/home_screen.dart';
 import 'package:flutter/material.dart';
 
+// make a entery point for handling bacground message
+@pragma('vm:entry-point')
+Future<void> _firebaseBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // pass handler
+  FirebaseMessaging.onBackgroundMessage(_firebaseBackgroundHandler);
   runApp(const MyApp());
-}
-
-@pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  print(message.notification!.title.toString());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Firebase Notification',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: HomeScreen(),
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          fontFamily: 'SFProDisplay',
+          textTheme: TextTheme(
+            bodyMedium: TextStyle(fontWeight: FontWeight.w400),
+            titleMedium: TextStyle(fontWeight: FontWeight.w600),
+          ),
+        ),
+        home: HomeScreen());
   }
 }
