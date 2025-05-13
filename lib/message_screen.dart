@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 
-class MessageScreen extends StatelessWidget {
-  final String id;
-  const MessageScreen({super.key, required this.id});
+class MessageScreen extends StatefulWidget {
+  const MessageScreen({super.key});
 
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Message Screen'),
-      ),
+      appBar: AppBar(title: const Text('Message Screen')),
       body: Center(
-        child: Text(id.toString()),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Message Screen'),
+          ],
+        ),
       ),
     );
   }
